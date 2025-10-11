@@ -1,8 +1,11 @@
+import Header from "./components/nav/Header";
+
 function App() {
   return (
-    <>
-      <h1 className="text-2xl font-bold">Hello world!</h1>
-    </>
+    <main className="flex flex-col min-h-screen bg-background text-text-primary">
+      <Header />
+      <div></div>
+    </main>
   );
 }
 
