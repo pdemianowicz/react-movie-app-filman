@@ -3,6 +3,7 @@ import userImg from "../../assets/img/user.png";
 import SearchBar from "./SearchBar";
 import { LuSearch } from "react-icons/lu";
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 export interface NavLinksItem {
   title: string;
@@ -31,9 +32,9 @@ export default function Header() {
         {/* nav */}
         <nav className="hidden md:flex space-x-3 mr-auto">
           {navLinks.map((item, index) => (
-            <div key={item.title + index} className="font-semibold text-text-secondary hover:text-text-primary cursor-pointer">
+            <NavLink to={item.url} key={item.title + index} className="font-semibold text-text-secondary hover:text-text-primary cursor-pointer">
               {item.title}
-            </div>
+            </NavLink>
           ))}
         </nav>
         {/* searchBar desktop*/}
