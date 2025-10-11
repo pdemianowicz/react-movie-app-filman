@@ -32,7 +32,14 @@ export default function Header() {
         {/* nav */}
         <nav className="hidden md:flex space-x-3 mr-auto">
           {navLinks.map((item, index) => (
-            <NavLink to={item.url} key={item.title + index} className="font-semibold text-text-secondary hover:text-text-primary cursor-pointer">
+            <NavLink
+              to={item.url}
+              key={item.title + index}
+              className={({ isActive }) =>
+                `rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 transition-colors ${
+                  isActive ? "text-text-primary bg-gray-900" : "text-text-secondary hover:text-text-primary"
+                }`
+              }>
               {item.title}
             </NavLink>
           ))}
