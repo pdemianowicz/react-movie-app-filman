@@ -1,25 +1,28 @@
-import type { SearchResult } from "./SearchBar";
+import { Link } from "react-router-dom";
+import type { TmdbResults } from "../../types/tmdb.types";
+import getImageUrl from "../../utils/getImageUrl";
 
 export interface SearchDropdownProps {
-  results: SearchResult[];
+  results: TmdbResults[];
   loading: boolean;
   error: string;
 }
-
-const BASE_IMG_URL = "https://image.tmdb.org/t/p";
 
 export default function SearchDropdown({ results, loading, error }: SearchDropdownProps) {
   return (
     <div className="absolute z-10 top-full left-0 right-0 bg-surface rounded-md shadow-lg mt-2">
       {results.slice(0, 4).map((item) => (
-        <div key={item.id} className="flex items-center gap-4 px-4 py-2 hover:bg-background/60 cursor-pointer transition-colors">
+        <Link
+          to={`${item.media_type}/${item.id}`}
+          key={item.id}
+          className="flex items-center gap-4 px-4 py-2 hover:bg-background/60 cursor-pointer transition-colors">
           <img
-            src={`${BASE_IMG_URL}/w92/${item.poster_path || item.profile_path}`}
+            src={getImageUrl(item.poster_path || item.profile_path || null, "w92")}
             alt={item.title || item.name}
             className="w-12 h-16 object-cover rounded-md"
           />
           <span>{item.title || item.name}</span>
-        </div>
+        </Link>
       ))}
     </div>
   );

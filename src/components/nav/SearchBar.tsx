@@ -2,31 +2,22 @@ import { LuSearch } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import SearchDropdown from "./SearchDropdown";
-import { useTmdbFetch } from "../../hooks/useTmdbFetch";
+import useSearch from "../../hooks/useSearch";
+import type { TmdbResults } from "../../types/tmdb.types";
 
 export interface SearchBarProps {
   onClose?: () => void;
 }
 
-export interface SearchResult {
-  id: number;
-  title: string;
-  name: string;
-  poster_path: string;
-  profile_path: string;
-  overview: string;
-  media_type: string;
-}
-
 export default function SearchBar({ onClose }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data, loading, error } = useTmdbFetch<SearchResult>("/search/multi", { query: query });
+  const { data, loading, error } = useSearch(query);
 
   const results = data?.results || [];
 
   const filteredData = results.filter(
-    (item: SearchResult) =>
+    (item: TmdbResults) =>
       (item.media_type === "movie" && item.poster_path) ||
       (item.media_type === "tv" && item.poster_path) ||
       (item.media_type === "person" && item.profile_path)
