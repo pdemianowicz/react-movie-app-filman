@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import Serials from "./pages/Serials";
 import Bookmarks from "./pages/Bookmarks";
+import MovieDetails from "./pages/MovieDetails";
+import TvDetails from "./pages/TvDetails";
+import PersonDetails from "./pages/PersonDetails";
 
 function App() {
   return (
@@ -12,9 +15,13 @@ function App() {
       <div className=" p-4 md:p-6 overflow-auto max-w-7xl mx-auto mt-8 w-full">
         <Routes>
           <Route index element={<Home />} />
-          <Route path="movies" element={<Movies />} />
-          <Route path="serials" element={<Serials />} />
-          <Route path="bookmarks" element={<Bookmarks />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/serials" element={<Serials />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+
+          <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/tv/:id" element={<TvDetails />} />
+          <Route path="/person/:id" element={<PersonDetails />} />
         </Routes>
       </div>
     </main>
