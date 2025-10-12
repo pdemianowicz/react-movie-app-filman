@@ -27,7 +27,7 @@ export default function MediaCredits({ cast, crew, maxCast = 3 }: MovieCreditsPr
       {topCast.length > 0 && (
         <div className="flex gap-2">
           <span className="font-medium min-w-[80px]">Starring:</span>
-          <span className="text-text-secondary flex gap-1">
+          <span className="text-text-secondary flex max-sm:flex-col gap-1">
             {topCast.map((actor, index) => (
               <span key={actor.id}>
                 <Link to={`/person/${actor.id}`} className="hover:text-text-primary transition-colors">
