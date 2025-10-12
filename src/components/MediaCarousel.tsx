@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import MediaCard from "./MediaCard";
-import type { SearchResult } from "./nav/SearchBar";
 import { LuChevronLeft } from "react-icons/lu";
 import { LuChevronRight } from "react-icons/lu";
+import type { TmdbResults } from "../types/tmdb.types";
 
 export interface MediaCarouselProps {
   title: string;
-  data: SearchResult[];
+  data: TmdbResults[];
 }
 
 export default function MediaCarousel({ title, data }: MediaCarouselProps) {
