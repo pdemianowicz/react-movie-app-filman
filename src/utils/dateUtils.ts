@@ -1,4 +1,4 @@
-export default function formatDate(
+export function formatDate(
   dateString: string | Date | null | undefined,
   options: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -44,4 +44,11 @@ export function calculateAge(birthday: string | Date | null | undefined): number
   } catch {
     return null;
   }
+}
+
+export function formatRuntime(minutes: number): string {
+  if (!minutes) return "";
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return `${hours}h ${remainingMinutes}m`;
 }
