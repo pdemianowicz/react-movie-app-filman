@@ -1,12 +1,11 @@
 import MediaCarousel from "../components/MediaCarousel";
-import type { SearchResult } from "../components/nav/SearchBar";
-import { useTmdbFetch } from "../hooks/useTmdbFetch";
+import { useMediaList } from "../hooks/useMediaList";
 
 export default function Home() {
-  const { data: trendingData } = useTmdbFetch<SearchResult>("/trending/all/week");
-  const { data: popularMovieData } = useTmdbFetch<SearchResult>("/movie/popular");
-  const { data: popularTvData } = useTmdbFetch<SearchResult>("/tv/popular");
-  const { data: upcomingData } = useTmdbFetch<SearchResult>("/movie/upcoming");
+  const { data: trendingData } = useMediaList("/trending/all/week");
+  const { data: popularMovieData } = useMediaList("/movie/popular");
+  const { data: popularTvData } = useMediaList("/tv/popular");
+  const { data: upcomingData } = useMediaList("/movie/upcoming");
 
   const trending = trendingData?.results || [];
   const popularTv = popularTvData?.results || [];
