@@ -13,7 +13,7 @@ export default function SearchDropdown({ results, loading, error }: SearchDropdo
     <div className="absolute z-10 top-full left-0 right-0 bg-surface rounded-md shadow-lg mt-2">
       {results.slice(0, 4).map((item) => (
         <Link
-          to={`${item.media_type}/${item.id}`}
+          to={`/${item.media_type}/${item.id}`}
           key={item.id}
           className="flex items-center gap-4 px-4 py-2 hover:bg-background/60 cursor-pointer transition-colors">
           <img

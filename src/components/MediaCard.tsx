@@ -15,9 +15,9 @@ export default function MediaCard({ item }: MediaCardProps) {
   const rating = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
 
   return (
-    <div className="snap-start flex-shrink-0 group">
+    <div className="snap-start group">
       <div className="w-full aspect-[2/3] group relative rounded overflow-hidden shadow-lg">
-        <Link to={`${mediaType}/${item.id}`} className="group relative block flex-shrink-0 w-full h-full">
+        <Link to={`/${mediaType}/${item.id}`} className="group relative block w-full h-full">
           {/* image */}
           <img
             src={getImageUrl(posterUrl, "w300")}
