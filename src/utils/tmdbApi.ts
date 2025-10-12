@@ -16,3 +16,21 @@ export async function tmdbFetch(endpoint: string, params?: Record<string, string
   if (!res.ok) throw new Error(`TMDB API error: ${res.status}`);
   return res.json();
 }
+
+export async function getMovieDetails(id: number) {
+  return tmdbFetch(`/movie/${id}`, {
+    append_to_response: "credits,videos,images,recommendations,release_dates",
+  });
+}
+
+export async function getTvDetails(id: number) {
+  return tmdbFetch(`/tv/${id}`, {
+    append_to_response: "credits,videos,images,recommendations,release_dates",
+  });
+}
+
+export async function getPersonDetails(id: number) {
+  return tmdbFetch(`/person/${id}`, {
+    append_to_response: "combined_credits,external_ids",
+  });
+}
