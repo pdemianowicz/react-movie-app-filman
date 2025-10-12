@@ -7,3 +7,50 @@
   --color-text-primary: #e7e5e4;
   --color-text-secondary: #a3a3a3;
 }
+
+body {
+  font-family: "Outfit", sans-serif;
+}
+
+.carousel-container {
+  --nVisibleItems: 2;
+  --gap: 24px;
+
+  grid-auto-columns: calc((100% - (var(--nVisibleItems) - 1) * var(--gap)) / var(--nVisibleItems));
+  gap: var(--gap);
+}
+
+@media (min-width: 442px) {
+  /* xs */
+  .carousel-container {
+    --nVisibleItems: 3;
+  }
+}
+
+@media (min-width: 640px) {
+  /* sm */
+  .carousel-container {
+    --nVisibleItems: 4;
+  }
+}
+
+@media (min-width: 768px) {
+  /* md */
+  .carousel-container {
+    --nVisibleItems: 5;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg */
+  .carousel-container {
+    --nVisibleItems: 6;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* xl */
+  .carousel-container {
+    --nVisibleItems: 6;
+  }
+}
