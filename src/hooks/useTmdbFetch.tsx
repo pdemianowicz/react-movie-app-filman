@@ -15,11 +15,11 @@ export interface TmdbResponse<T> {
   total_results: number;
 }
 
-export function useTmdbFetch<T>(endpoint: string, options: FetchOpitions) {
+export function useTmdbFetch<T>(endpoint: string, options?: FetchOpitions) {
   const [data, setData] = useState<TmdbResponse<T> | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { query } = options;
+  const query = options?.query;
 
   useEffect(() => {
     async function fetchData() {
