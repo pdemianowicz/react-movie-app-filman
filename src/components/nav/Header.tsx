@@ -3,7 +3,7 @@ import userImg from "../../assets/img/user.png";
 import SearchBar from "./SearchBar";
 import { LuSearch } from "react-icons/lu";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export interface NavLinksItem {
   title: string;
@@ -25,10 +25,10 @@ export default function Header() {
       <div className="max-w-7xl mx-auto p-4 md:p-6 h-full">
         <div className="flex items-center justify-between">
           {/* logo */}
-          <div className="flex items-center mr-4 lg:mr-12 gap-4">
+          <Link to={"/"} className="flex items-center mr-4 lg:mr-12 gap-4">
             <img src={logo} alt="Filman logo" />
             <span className="text-xl font-medium">Filman</span>
-          </div>
+          </Link>
 
           {/* nav */}
           <nav className="hidden md:flex space-x-3 mr-auto">
