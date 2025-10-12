@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import MediaCarousel from "../components/MediaCarousel";
 import MediaCredits from "../components/MediaDetails/MediaCredits";
 import MovieCast from "../components/MediaDetails/MovieCast";
@@ -8,6 +9,11 @@ import getImageUrl from "../utils/getImageUrl";
 
 export default function TvDetails() {
   const { data, loading, error } = useMovieDetails("tv");
+  const trailerRef = useRef<HTMLHRElement>(null);
+
+  const handleClick = () => {
+    trailerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   if (loading) return <div className="text-center py-20">Loading...</div>;
   if (error) return <div className="text-center py-20 text-red-400">{error}</div>;
@@ -42,7 +48,10 @@ export default function TvDetails() {
           <MediaCredits cast={cast} crew={crew} maxCast={3} />
 
           <div className="mt-8">
-            <button type="button" className="bg-accent/85 text-text-primary font-medium px-6 py-2.5 rounded-lg cursor-pointer hover:bg-accent/75">
+            <button
+              type="button"
+              onClick={handleClick}
+              className="bg-accent/85 text-text-primary font-medium px-6 py-2.5 rounded-lg cursor-pointer hover:bg-accent/75">
               Play Trailer
             </button>
           </div>
@@ -52,7 +61,7 @@ export default function TvDetails() {
       <div className="mt-4">{suggestedItems.length > 0 && <MediaCarousel title="You might also like" data={suggestedItems} />}</div>
       <hr className="my-8 opacity-15" />
       <MovieCast cast={cast} initialCount={7} />
-      <hr className="my-8 opacity-15" />
+      <hr ref={trailerRef} className="my-8 opacity-15" />
       <h2 className="text-xl font-semibold text-text-primary">Video</h2>
       {trailer ? (
         <div className="aspect-video mt-4">
