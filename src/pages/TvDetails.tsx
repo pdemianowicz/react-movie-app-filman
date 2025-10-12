@@ -19,7 +19,7 @@ export default function TvDetails() {
   if (error) return <div className="text-center py-20 text-red-400">{error}</div>;
   if (!data) return <div className="text-center py-20">No data found.</div>;
 
-  console.log(data);
+  // console.log(data);
 
   const title = data?.name;
   const overview = data?.overview;
@@ -33,6 +33,8 @@ export default function TvDetails() {
   const crew = data?.credits?.crew ?? [];
   const images = (data?.images?.backdrops ?? []).slice(0, 6);
   const trailer = data?.videos?.results.find((video) => video.type === "Trailer");
+
+  console.log(suggestedItems);
 
   return (
     <div className="max-w-6xl mx-auto md:p-6">
@@ -57,8 +59,14 @@ export default function TvDetails() {
           </div>
         </div>
       </div>
-      <hr className="my-8 opacity-15" />
-      <div className="mt-4">{suggestedItems.length > 0 && <MediaCarousel title="You might also like" data={suggestedItems} />}</div>
+      {suggestedItems.length > 0 && (
+        <>
+          <hr className="my-8 opacity-15" />
+          <div className="mt-4">
+            <MediaCarousel title="You might also like" data={suggestedItems} />
+          </div>
+        </>
+      )}
       <hr className="my-8 opacity-15" />
       <MovieCast cast={cast} initialCount={7} />
       <hr ref={trailerRef} className="my-8 opacity-15" />
@@ -77,17 +85,21 @@ export default function TvDetails() {
       )}
       <hr className="my-8 opacity-15" />
       <h2 className="text-xl font-semibold text-text-primary">Images</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
-        {images.map((img) => (
-          <img
-            key={img.file_path}
-            src={getImageUrl(img.file_path, "w400")}
-            alt="backdrop image"
-            loading="lazy"
-            className="w-full rounded-md hover:opacity-75 transition ease-in-out duration-150 cursor-pointer"
-          />
-        ))}
-      </div>
+      {images.length ? (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+          {images.map((img) => (
+            <img
+              key={img.file_path}
+              src={getImageUrl(img.file_path, "w400")}
+              alt="backdrop image"
+              loading="lazy"
+              className="w-full rounded-md hover:opacity-75 transition ease-in-out duration-150 cursor-pointer"
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-400">No images available.</p>
+      )}
     </div>
   );
 }
