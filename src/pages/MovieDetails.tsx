@@ -65,8 +65,12 @@ export default function MovieDetails() {
           </div>
         </>
       )}
-      <hr className="my-8 opacity-15" />
-      <MovieCast cast={cast} initialCount={7} />
+      {cast.length > 0 && (
+        <>
+          <hr className="my-8 opacity-15" />
+          <MovieCast cast={cast} initialCount={7} />
+        </>
+      )}
       <hr ref={trailerRef} className="my-8 opacity-15" />
       <h2 className="text-xl font-semibold text-text-primary">Video</h2>
       {trailer ? (
