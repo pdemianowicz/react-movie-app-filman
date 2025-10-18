@@ -6,6 +6,7 @@ import MovieMeta from "../components/MediaDetails/MovieMeta";
 import useMovieDetails from "../hooks/useMediaDetails";
 import { formatDate, formatRuntime } from "../utils/dateUtils";
 import getImageUrl from "../utils/getImageUrl";
+import BookmarkButton from "../components/BookmarkButton";
 
 export default function TvDetails() {
   const { data, loading, error } = useMovieDetails("tv");
@@ -43,7 +44,7 @@ export default function TvDetails() {
         <div className="text-gray-300">
           <div className="flex items-center justify-between gap-2 mb-1">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-text-primary">{title}</h1>
-            {/* <BookmarkButton id={data.id} mediaType="movie" /> */}
+            <BookmarkButton id={data.id} mediaType="tv" />
           </div>
           <MovieMeta voteAverage={voteAverage} releaseDate={releaseDate} runtime={runtime} genres={genres} />
           <p className="mt-8">{overview}</p>
