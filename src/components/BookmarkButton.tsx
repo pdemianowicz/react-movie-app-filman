@@ -1,46 +1,20 @@
-import { useEffect, useState } from "react";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
-
-const STORAGE_KEY = "Filman_bookmarks";
-
-export interface Bookmark {
-  id: number;
-  mediaType: string;
-}
+import useBookmarks, { type Bookmark } from "../hooks/useBookmarks";
 
 export default function BookmarkButton({ id, mediaType }: Bookmark) {
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => {
-    try {
-      const storage = localStorage.getItem(STORAGE_KEY);
-      return storage ? JSON.parse(storage) : [];
-    } catch (error) {
-      console.error("Failed to parse bookmarks from localStorage", error);
-      return [];
-    }
-  });
-  const isBookmarked = bookmarks.some((bookmark) => bookmark.id === id && bookmark.mediaType === mediaType);
+  const { isBookmarked, toggleBookmark } = useBookmarks();
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(bookmarks));
-  }, [bookmarks]);
-
-  const handleToggleBookmark = () => {
-    if (isBookmarked) {
-      setBookmarks((prev) => prev.filter((item) => !(item.id === id && item.mediaType === mediaType)));
-    } else {
-      const newBookmark = { id, mediaType };
-      setBookmarks((prev) => [...prev, newBookmark]);
-    }
-  };
+  const item = { id, mediaType };
+  const bookmarked = isBookmarked(item);
 
   return (
     <button
       type="button"
-      onClick={handleToggleBookmark}
+      onClick={() => toggleBookmark(item)}
       className="p-4 hover:bg-surface rounded-full cursor-pointer transition-colors group"
-      aria-label={isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}>
-      {isBookmarked ? (
+      aria-label={bookmarked ? "Remove from bookmarks" : "Add to bookmarks"}>
+      {bookmarked ? (
         <FaBookmark className="text-gray-300 group-hover:text-text-primary transition-colors" />
       ) : (
         <FaRegBookmark className="text-text-secondary group-hover:text-text-primary transition-colors" />
