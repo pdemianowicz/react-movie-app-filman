@@ -2,6 +2,7 @@ import useBookmarks from "../hooks/useBookmarks";
 import { tmdbFetch } from "../utils/tmdbApi";
 import MediaCard from "../components/MediaCard";
 import { useQuery } from "@tanstack/react-query";
+import { BookmarksSkeleton } from "../components/skeletons/BookmarksSkeleton";
 
 export default function BookmarkPage() {
   const { bookmarks } = useBookmarks();
@@ -20,7 +21,7 @@ export default function BookmarkPage() {
     },
   });
 
-  if (isLoading) return <div className="text-center py-20">Loading bookmarks...</div>;
+  if (isLoading) return <BookmarksSkeleton />;
   if (isError) return <div className="text-center py-20 text-red-400">Error: {error.message}</div>;
 
   return (
