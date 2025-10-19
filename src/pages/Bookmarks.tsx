@@ -9,8 +9,8 @@ export default function BookmarkPage() {
   if (isError) return <div className="text-center py-20 text-red-400">Error: {error.message}</div>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4">
-      <h1 className="text-xl font-semibold my-4 text-text-primary">My Bookmarks</h1>
+    <>
+      <h1 className="text-xl font-semibold text-text-primary mb-2 leading-10">My Bookmarks</h1>
 
       {bookmarkedItems && bookmarkedItems.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
@@ -21,6 +21,6 @@ export default function BookmarkPage() {
       ) : (
         <p className="text-center text-text-secondary">You haven't bookmarked any items yet.</p>
       )}
-    </div>
+    </>
   );
 }
