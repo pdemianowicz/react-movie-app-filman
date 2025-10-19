@@ -8,6 +8,7 @@ export default function BookmarkPage() {
   const { bookmarks } = useBookmarks();
   const [bookmarkedItems, setBookmarkedItems] = useState<TmdbResults[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchBookmarkedItems = async () => {
@@ -18,7 +19,7 @@ export default function BookmarkPage() {
       }
 
       setLoading(true);
-
+      setError("");
       const promises = bookmarks.map((bookmark) => tmdbFetch(`/${bookmark.mediaType}/${bookmark.id}`));
 
       try {
@@ -26,6 +27,7 @@ export default function BookmarkPage() {
         setBookmarkedItems(results);
       } catch (err) {
         console.error("Failed to fetch bookmarked items", err);
+        setError("Failed to load your bookmarks. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -35,6 +37,7 @@ export default function BookmarkPage() {
   }, [bookmarks]);
 
   if (loading) return <div className="text-center py-20">Loading bookmarks...</div>;
+  if (error) return <div className="text-center py-20 text-red-400">{error}</div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4">
