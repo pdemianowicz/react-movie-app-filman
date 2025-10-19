@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import MediaCard from "../components/MediaCard";
 import useDiscoverMedia from "../hooks/useDiscoverMedia";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "../components/Pagination";
 
 interface DiscoverPageProps {
   mediaType: "movie" | "tv";
@@ -15,8 +16,7 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
   const totalPages = data?.total_pages || 1;
 
   const handleSetPage = (newPage: number) => {
-    const newPageNumber = Math.max(newPage, 1);
-    setSearchParams({ page: newPageNumber.toString() });
+    setSearchParams({ page: newPage.toString() });
   };
 
   useEffect(() => {
@@ -36,30 +36,7 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
           <MediaCard key={item.id} item={item} />
         ))}
       </div>
-      <div className="flex justify-center items-center gap-4 mt-8">
-        <button
-          type="button"
-          onClick={() => handleSetPage(page - 1)}
-          disabled={page === 1 || isLoading}
-          className="px-4 py-2 bg-surface hover:bg-surface/80 rounded-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-          aria-label="Previous page">
-          Previous
-        </button>
-
-        <span className="text-text-secondary">
-          Page {page} of {totalPages}
-        </span>
-
-        <button
-          type="button"
-          onClick={() => handleSetPage(page + 1)}
-          disabled={page >= totalPages || isLoading}
-          className="px-4 py-2 bg-surface hover:bg-surface/80 rounded-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-          aria-label="Next page">
-          Next
-        </button>
-      </div>
-      ;
+      {totalPages > 1 && <Pagination currentPage={page} totalPages={totalPages} onPageChange={handleSetPage} isLoading={isFetching} />}
     </>
   );
 }
