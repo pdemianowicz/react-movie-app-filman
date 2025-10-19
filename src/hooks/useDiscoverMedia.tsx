@@ -16,6 +16,10 @@ export default function useDiscoverMedia(mediaType: "movie" | "tv", options: { p
         params.with_genres = genre;
       }
 
+      if (sortBy === "vote_average.desc") {
+        params["vote_count.gte"] = 300;
+      }
+
       return tmdbFetch(`/discover/${mediaType}`, params);
     },
 

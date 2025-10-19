@@ -55,9 +55,12 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             className="bg-surface rounded-md pl-2.5 py-1.5 outline-none border-none">
-            <option value="popularity.desc">Popularity Descending</option>
-            <option value="release_date.desc">Release Date Descending</option>
-            <option value="vote_average.desc">Rating Descending</option>
+            <option value="popularity.desc">Popularity</option>
+            <option value="release_date.desc">Newest Releases</option>
+            <option value="vote_average.desc">Top Rated</option>
+            <option value="vote_count.desc">Most Voted</option>
+            <option value="revenue.desc">Highest Revenue</option>
+            <option value="original_title.asc">Title (A-Z)</option>
           </select>
           <select
             name="genre"
