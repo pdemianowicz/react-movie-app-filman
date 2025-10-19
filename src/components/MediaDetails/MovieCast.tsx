@@ -30,7 +30,7 @@ export default function MovieCast({ cast, initialCount = 8 }: MovieCastProps) {
         )}
       </div>
 
-      <div className="flex flex-wrap gap-8 justify-around">
+      <div className={`flex flex-wrap gap-8  ${displayedCast.length > 6 ? "justify-around" : ""}`}>
         {displayedCast.map((member, index) => (
           <PersonCard key={`${member.id}-${index}`} item={member} />
         ))}
