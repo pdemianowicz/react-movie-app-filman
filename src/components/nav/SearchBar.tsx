@@ -12,7 +12,7 @@ export interface SearchBarProps {
 export default function SearchBar({ onClose }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data, loading, error } = useSearch(query);
+  const { data, isLoading, isError, error } = useSearch(query);
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +47,7 @@ export default function SearchBar({ onClose }: SearchBarProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const shouldShowDropdown = isFocused && query.length > 2 && (filteredData.length > 0 || loading);
+  const shouldShowDropdown = isFocused && query.length > 2 && (filteredData.length > 0 || isLoading);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -58,6 +58,11 @@ export default function SearchBar({ onClose }: SearchBarProps) {
     if (e.key === "Escape") {
       setIsFocused(false);
     }
+  };
+
+  const handleClose = () => {
+    setIsFocused(false);
+    setQuery("");
   };
 
   return (
@@ -83,19 +88,21 @@ export default function SearchBar({ onClose }: SearchBarProps) {
         </div>
       </div>
 
-      {error && !loading && (
+      {isError && !isLoading && (
         <div className="absolute top-full left-0 right-0 bg-surface rounded-md shadow-lg p-4 mt-2">
-          <p className="text-red-400 text-center">{error}</p>
+          <p className="text-red-400 text-center">{error.message}</p>
         </div>
       )}
 
-      {isFocused && query.length >= 3 && results.length === 0 && !loading && (
+      {isFocused && query.length >= 3 && results.length === 0 && !isLoading && (
         <div className="absolute top-full left-0 right-0 bg-surface rounded-md shadow-lg p-6 mt-2 ">
           <p className="text-text-secondary text-center text-sm">No results found!</p>
         </div>
       )}
 
-      {shouldShowDropdown && <SearchDropdown results={filteredData} loading={loading} error={error} />}
+      {shouldShowDropdown && (
+        <SearchDropdown results={filteredData} loading={isLoading} error={error ? error.message : ""} onLinkClick={handleClose} />
+      )}
     </div>
   );
 }
