@@ -1,25 +1,9 @@
-import useBookmarks from "../hooks/useBookmarks";
-import { tmdbFetch } from "../utils/tmdbApi";
 import MediaCard from "../components/MediaCard";
-import { useQuery } from "@tanstack/react-query";
 import { BookmarksSkeleton } from "../components/skeletons/BookmarksSkeleton";
+import useBookmarkedItems from "../hooks/useBookmarkedItems";
 
 export default function BookmarkPage() {
-  const { bookmarks } = useBookmarks();
-  const {
-    data: bookmarkedItems,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["bookmarkedItems", bookmarks],
-    queryFn: async () => {
-      if (bookmarks.length === 0) return [];
-
-      const promises = bookmarks.map((bookmark) => tmdbFetch(`/${bookmark.mediaType}/${bookmark.id}`));
-      return Promise.all(promises);
-    },
-  });
+  const { data: bookmarkedItems, isLoading, isError, error } = useBookmarkedItems();
 
   if (isLoading) return <BookmarksSkeleton />;
   if (isError) return <div className="text-center py-20 text-red-400">Error: {error.message}</div>;
