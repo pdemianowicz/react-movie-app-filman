@@ -1,10 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { tmdbFetch } from "../utils/tmdbApi";
 import type { TmdbResponse } from "../types/tmdb.types";
 
-export default function useDiscoverMedia(mediaType: "movie" | "tv") {
+export default function useDiscoverMedia(mediaType: "movie" | "tv", page: number) {
   return useQuery<TmdbResponse>({
-    queryKey: ["discover", mediaType],
-    queryFn: () => tmdbFetch(`/discover/${mediaType}`),
+    queryKey: ["discover", mediaType, page],
+    queryFn: () => tmdbFetch(`/discover/${mediaType}`, { page: page }),
+
+    placeholderData: keepPreviousData,
   });
 }
