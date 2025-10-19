@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import MediaCard from "../components/MediaCard";
 import useDiscoverMedia from "../hooks/useDiscoverMedia";
 import { useSearchParams } from "react-router-dom";
@@ -9,7 +10,7 @@ interface DiscoverPageProps {
 export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
-  const { data, isLoading, isError, error } = useDiscoverMedia(mediaType, page);
+  const { data, isLoading, isError, error, isFetching } = useDiscoverMedia(mediaType, page);
   const media = data?.results || [];
   const totalPages = data?.total_pages || 1;
 
@@ -17,6 +18,12 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
     const newPageNumber = Math.max(newPage, 1);
     setSearchParams({ page: newPageNumber.toString() });
   };
+
+  useEffect(() => {
+    if (!isFetching) {
+      window.scrollTo(0, 0);
+    }
+  }, [isFetching]);
 
   if (isLoading) return <div className="text-center py-20">Loading media...</div>;
   if (isError) return <div className="text-center py-20 text-red-400">{error.message}</div>;
