@@ -8,6 +8,10 @@
   --color-text-secondary: #a3a3a3;
 }
 
+:root {
+  color-scheme: dark;
+}
+
 body {
   font-family: "Outfit", sans-serif;
 }
