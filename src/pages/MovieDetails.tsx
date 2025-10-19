@@ -9,18 +9,14 @@ import getImageUrl from "../utils/getImageUrl";
 import BookmarkButton from "../components/BookmarkButton";
 
 export default function MovieDetails() {
-  const { data, loading, error } = useMovieDetails("movie");
+  const { data, isLoading, isError, error } = useMovieDetails("movie");
   const trailerRef = useRef<HTMLHRElement>(null);
 
-  const handleClick = () => {
-    trailerRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const handleClick = () => trailerRef.current?.scrollIntoView({ behavior: "smooth" });
 
-  if (loading) return <div className="text-center py-20">Loading...</div>;
-  if (error) return <div className="text-center py-20 text-red-400">{error}</div>;
+  if (isLoading) return <div className="text-center py-20">Loading...</div>;
+  if (isError) return <div className="text-center py-20 text-red-400">{error.message}</div>;
   if (!data) return <div className="text-center py-20">No data found.</div>;
-
-  console.log(data);
 
   const title = data?.title;
   const overview = data?.overview;
@@ -66,10 +62,16 @@ export default function MovieDetails() {
           </div>
         </>
       )}
-      {cast.length > 0 && (
+      {cast.length > 0 ? (
         <>
           <hr className="my-8 opacity-15" />
           <MovieCast cast={cast} initialCount={7} />
+        </>
+      ) : (
+        <>
+          <hr className="my-8 opacity-15" />
+          <h2 className="text-xl font-semibold text-text-primary">Cast</h2>
+          <p className="text-gray-400">No cast available.</p>
         </>
       )}
       <hr ref={trailerRef} className="my-8 opacity-15" />
