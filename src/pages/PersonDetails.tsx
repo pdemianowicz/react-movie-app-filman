@@ -15,11 +15,11 @@ const InfoItem = ({ label, value }: { label: string; value: string | number | nu
 );
 
 export default function PersonDetails() {
-  const { data, loading, error } = useMovieDetails("person");
+  const { data, isLoading, isError, error } = useMovieDetails("person");
   const [showAll, setShowAll] = useState(false);
 
-  if (loading) return <div className="text-center py-20">Loading...</div>;
-  if (error) return <div className="text-center py-20 text-red-400">{error}</div>;
+  if (isLoading) return <div className="text-center py-20">Loading...</div>;
+  if (isError) return <div className="text-center py-20 text-red-400">{error.message}</div>;
   if (!data) return <div className="text-center py-20">No data found.</div>;
 
   console.log(data);
