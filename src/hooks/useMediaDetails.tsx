@@ -1,11 +1,18 @@
 import { useParams } from "react-router-dom";
 import { getMovieDetails, getPersonDetails, getTvDetails } from "../utils/tmdbApi";
 import { useQuery } from "@tanstack/react-query";
+import type { MovieDetails, PersonDetails, TvDetails } from "../types/tmdb.types";
 
-export default function useMovieDetails(mediaType: "movie" | "tv" | "person") {
+type MediaDetailsMap = {
+  movie: MovieDetails;
+  tv: TvDetails;
+  person: PersonDetails;
+};
+
+export default function useMovieDetails<T extends keyof MediaDetailsMap>(mediaType: T) {
   const { id } = useParams();
 
-  return useQuery({
+  return useQuery<MediaDetailsMap[T]>({
     queryKey: ["details", mediaType, id],
     queryFn: async () => {
       if (!id) return;
