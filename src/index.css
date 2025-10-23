@@ -1,15 +1,25 @@
 @import "tailwindcss";
 
+@layer theme {
+  .dark {
+    --color-accent: #fc4747;
+    --color-surface: #161d2f;
+    --color-background: #10141e;
+    --color-text-primary: #e7e5e4;
+    --color-text-secondary: #a3a3a3;
+  }
+}
+
 @theme {
-  --color-accent: #fc4747;
-  --color-surface: #161d2f;
-  --color-background: #10141e;
-  --color-text-primary: #e7e5e4;
-  --color-text-secondary: #a3a3a3;
+  --color-accent: #dc2626;
+  --color-surface: #f3f4f6;
+  --color-background: oklch(98.5% 0 0);
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
 }
 
 body {

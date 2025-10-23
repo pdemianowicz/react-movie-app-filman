@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import { LuSearch } from "react-icons/lu";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import ThemeToggleButton from "../ThemeToggleButton";
 
 export interface NavLinksItem {
   title: string;
@@ -66,6 +67,7 @@ export default function Header() {
           )}
           {/* user avatar */}
           <img src={userImg} alt="User avatar" className="w-8 h-8" />
+          <ThemeToggleButton />
         </div>
       </div>
     </header>
