@@ -2,10 +2,11 @@ import { useState } from "react";
 import MediaCard from "../components/MediaCard";
 import ExpandableText from "../components/MediaDetails/ExpandableText";
 import SocialLinks from "../components/MediaDetails/SocialLinks";
-
 import useMovieDetails from "../hooks/useMediaDetails";
 import { calculateAge, formatDate } from "../utils/dateUtils";
 import getImageUrl from "../utils/getImageUrl";
+import PersonDetailsSkeleton from "../components/skeletons/PersonDetailsSkeleton";
+import ImageWithLoader from "../components/skeletons/ImageWithLoader";
 
 const InfoItem = ({ label, value }: { label: string; value: string | number | null }) => (
   <div>
@@ -18,11 +19,9 @@ export default function PersonDetails() {
   const { data, isLoading, isError, error } = useMovieDetails("person");
   const [showAll, setShowAll] = useState(false);
 
-  if (isLoading) return <div className="text-center py-20">Loading...</div>;
+  if (isLoading) return <PersonDetailsSkeleton />;
   if (isError) return <div className="text-center py-20 text-red-400">{error.message}</div>;
   if (!data) return <div className="text-center py-20">No data found.</div>;
-
-  console.log(data);
 
   const name = data?.name;
   const bio = data?.biography;
@@ -41,10 +40,10 @@ export default function PersonDetails() {
       <div className="lg:flex md:gap-12 lg:gap-24">
         <aside className="max-lg:flex gap-4">
           <div className="">
-            <img
+            <ImageWithLoader
               src={getImageUrl(profileUrl, "w400")}
               alt={data.name}
-              className="rounded-lg max-w-[150px] md:max-w-[300px] w-full mx-auto object-cover"
+              className="w-[150px] md:w-[300px] rounded-lg mx-auto object-cover aspect-[2/3]"
             />
             <div className="mt-4 md:mb-8">
               <SocialLinks externalIds={socialLinks} />
