@@ -9,7 +9,7 @@ type MediaDetailsMap = {
   person: PersonDetails;
 };
 
-export default function useMovieDetails<T extends keyof MediaDetailsMap>(mediaType: T) {
+export default function useMediaDetails<T extends keyof MediaDetailsMap>(mediaType: T) {
   const { id } = useParams();
 
   return useQuery<MediaDetailsMap[T]>({

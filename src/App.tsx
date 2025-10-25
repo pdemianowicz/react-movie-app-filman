@@ -1,13 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/nav/Header";
 import Home from "./pages/Home";
-
 import Bookmarks from "./pages/Bookmarks";
-import MovieDetails from "./pages/MovieDetails";
-import TvDetails from "./pages/TvDetails";
 import PersonDetails from "./pages/PersonDetails";
 import Footer from "./components/Footer";
 import DiscoverPage from "./pages/DiscoverPage";
+import MediaDetailsPage from "./pages/MediaDetailsPage";
 
 function App() {
   return (
@@ -20,8 +18,8 @@ function App() {
           <Route path="/serials" element={<DiscoverPage mediaType="tv" />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
 
-          <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/tv/:id" element={<TvDetails />} />
+          <Route path="/movie/:id" element={<MediaDetailsPage mediaType="movie" />} />
+          <Route path="/tv/:id" element={<MediaDetailsPage mediaType="tv" />} />
           <Route path="/person/:id" element={<PersonDetails />} />
         </Routes>
       </div>
