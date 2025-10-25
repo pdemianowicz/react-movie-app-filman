@@ -4,6 +4,7 @@ import useDiscoverMedia from "../hooks/useDiscoverMedia";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import useGenres from "../hooks/useGenres";
+import DiscoverPageSkeleton from "../components/skeletons/DiscoverPageSkeleton";
 
 interface DiscoverPageProps {
   mediaType: "movie" | "tv";
@@ -38,7 +39,7 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
     }
   }, [isFetching]);
 
-  if (isLoading) return <div className="text-center py-20">Loading media...</div>;
+  if (isLoading) return <DiscoverPageSkeleton />;
   if (isError) return <div className="text-center py-20 text-red-400">{error.message}</div>;
 
   return (
