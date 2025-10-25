@@ -74,8 +74,8 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
         </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6 py-1">
-        {media.map((item) => (
-          <MediaCard key={item.id} item={item} />
+        {media.map((item, index) => (
+          <MediaCard key={item.id} item={item} index={index} />
         ))}
       </div>
       {totalPages > 1 && <Pagination currentPage={page} totalPages={totalPages} onPageChange={handleSetPage} isLoading={isFetching} />}

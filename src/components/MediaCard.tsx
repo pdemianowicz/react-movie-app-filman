@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { DATE_FORMATS, formatDate } from "../utils/dateUtils";
 import getImageUrl from "../utils/getImageUrl";
 import type { TmdbResults } from "../types/tmdb.types";
+import { motion } from "framer-motion";
 
 export interface MediaCardProps {
   item: TmdbResults;
+  index?: number;
 }
 
-export default function MediaCard({ item }: MediaCardProps) {
+export default function MediaCard({ item, index = 0 }: MediaCardProps) {
   const title = item.title || item.name;
   const mediaType = item.media_type || (item.first_air_date ? "Tv" : "Movie");
   const posterUrl = item?.poster_path ? item?.poster_path : null;
@@ -15,7 +17,7 @@ export default function MediaCard({ item }: MediaCardProps) {
   const rating = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
 
   return (
-    <div className="snap-start group">
+    <motion.div className="snap-start group" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: index * 0.05 }}>
       <div className="w-full aspect-[2/3] group relative rounded overflow-hidden shadow-lg">
         <Link to={`/${mediaType}/${item.id}`} className="group relative block w-full h-full">
           {/* image */}
@@ -42,6 +44,6 @@ export default function MediaCard({ item }: MediaCardProps) {
           {year}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
