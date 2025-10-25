@@ -3,18 +3,19 @@ import MediaCarousel from "../components/MediaCarousel";
 import MediaCredits from "../components/MediaDetails/MediaCredits";
 import MovieCast from "../components/MediaDetails/MovieCast";
 import MovieMeta from "../components/MediaDetails/MovieMeta";
-import useMovieDetails from "../hooks/useMediaDetails";
+import useMediaDetails from "../hooks/useMediaDetails";
 import { formatDate, formatRuntime } from "../utils/dateUtils";
 import getImageUrl from "../utils/getImageUrl";
 import BookmarkButton from "../components/BookmarkButton";
+import MediaDetailsSkeleton from "../components/skeletons/MediaDetailsSkeleton";
 
 export default function TvDetails() {
-  const { data, isLoading, isError, error } = useMovieDetails("tv");
+  const { data, isLoading, isError, error } = useMediaDetails("tv");
   const trailerRef = useRef<HTMLHRElement>(null);
 
   const handleClick = () => trailerRef.current?.scrollIntoView({ behavior: "smooth" });
 
-  if (isLoading) return <div className="text-center py-20">Loading...</div>;
+  if (isLoading) return <MediaDetailsSkeleton />;
   if (isError) return <div className="text-center py-20 text-red-400">{error.message}</div>;
   if (!data) return <div className="text-center py-20">No data found.</div>;
 
