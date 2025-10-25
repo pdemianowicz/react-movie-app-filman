@@ -3,6 +3,7 @@ import MediaCard from "../components/MediaCard";
 import useDiscoverMedia from "../hooks/useDiscoverMedia";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import useGenres from "../hooks/useGenres";
 
 interface DiscoverPageProps {
   mediaType: "movie" | "tv";
@@ -25,6 +26,8 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
   const { data, isLoading, isError, error, isFetching } = useDiscoverMedia(mediaType, options);
   const media = data?.results || [];
   const totalPages = data?.total_pages || 1;
+
+  const { data: genresData } = useGenres(mediaType);
 
   const handleSetPage = (newPage: number) => {
     setSearchParams({ page: newPage.toString() });
@@ -67,9 +70,12 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
             className="bg-surface rounded-md pl-2.5 py-1.5 outline-none border-none">
-            <option value="28">Action</option>
-            <option value="35">Comedy</option>
-            <option value="27">Horror</option>
+            <option value="">All Genres</option>
+            {genresData?.map((genre) => (
+              <option key={genre.id} value={genre.id.toString()}>
+                {genre.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
