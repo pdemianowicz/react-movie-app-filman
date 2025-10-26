@@ -68,6 +68,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build application
         run: pnpm run build
+        env:
+          VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v4
         with:
