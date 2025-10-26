@@ -17,13 +17,19 @@ export default function MediaCard({ item, index = 0 }: MediaCardProps) {
   const rating = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
 
   return (
-    <motion.div className="snap-start group" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: index * 0.05 }}>
+    <motion.div
+      className="snap-start group"
+      initial={index < 18 ? { opacity: 0 } : false}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}>
       <div className="w-full aspect-[2/3] group relative rounded overflow-hidden shadow-lg">
         <Link to={`/${mediaType}/${item.id}`} className="group relative block w-full h-full">
           {/* image */}
           <img
             src={getImageUrl(posterUrl, "w300")}
             alt={title}
+            loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
 
