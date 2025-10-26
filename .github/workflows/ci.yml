@@ -27,7 +27,7 @@ jobs:
           node-version: "20.x"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --ignore-workspace-root-check
+        run: pnpm install --frozen-lockfile
 
       - name: Run tests
         run: pnpm test:ci
