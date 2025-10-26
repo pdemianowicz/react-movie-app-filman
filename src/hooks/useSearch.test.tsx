@@ -37,7 +37,7 @@ describe("useSearch", () => {
   });
 
   it("should triggera query after the debounce time for a valid search term", async () => {
-    // @ts-ignore
+    // @ts-expect-error: Mocking the tmdbFetch function
     (tmdbFetch as vi.Mock).mockResolvedValueOnce({ results: [] });
     renderHook(() => useSearch("The Walking Dead"), { wrapper: createWrapper() });
 
@@ -50,7 +50,7 @@ describe("useSearch", () => {
   });
 
   it("should only trigger a query for the latest search term after rapid changes", async () => {
-    // @ts-ignore
+    // @ts-expect-error: Mocking the tmdbFetch function
     (tmdbFetch as vi.Mock).mockResolvedValueOnce({ results: [] });
     const { rerender } = renderHook(({ query }) => useSearch(query), {
       initialProps: { query: "" },

@@ -34,7 +34,7 @@ describe("useGenres", () => {
       ],
     };
 
-    // @ts-ignore
+    // @ts-expect-error: Mocking the tmdbFetch function
     (tmdbFetch as vi.Mock).mockResolvedValueOnce(mockApiResponse);
 
     const { result } = renderHook(() => useGenres("movie"), { wrapper: createWrapper() });
@@ -49,7 +49,7 @@ describe("useGenres", () => {
   it("should handle API errors", async () => {
     const mockError = new Error("API Error");
 
-    // @ts-ignore
+    // @ts-expect-error: Mocking the tmdbFetch function
     (tmdbFetch as vi.Mock).mockRejectedValueOnce(mockError);
 
     const { result } = renderHook(() => useGenres("tv"), { wrapper: createWrapper() });
