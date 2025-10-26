@@ -3,8 +3,8 @@ import MediaCard from "../components/MediaCard";
 import useDiscoverMedia from "../hooks/useDiscoverMedia";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
-import useGenres from "../hooks/useGenres";
 import DiscoverPageSkeleton from "../components/skeletons/DiscoverPageSkeleton";
+import SortAndFilterControls from "../components/SortAndFilterControls";
 
 interface DiscoverPageProps {
   mediaType: "movie" | "tv";
@@ -18,7 +18,6 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
   const genre = searchParams.get("genre") || "";
 
   const { data, isLoading, isError, error, isFetching } = useDiscoverMedia(mediaType, { page, sortBy, genre });
-  const { data: genresData } = useGenres(mediaType);
 
   const media = data?.results || [];
   const totalPages = data?.total_pages || 1;
@@ -46,32 +45,7 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
     <>
       <div className="flex max-md:flex-col md:items-center justify-between">
         <h1 className="text-xl font-semibold text-text-primary mb-2 leading-10">Discover {mediaType === "movie" ? "Movies" : "Serials"}</h1>
-        <div className="flex items-center justify-center max-md:mb-2 gap-4">
-          <select
-            name="sort"
-            value={sortBy}
-            onChange={(e) => handleFilterChange("sortBy", e.target.value)}
-            className="bg-surface rounded-md pl-2.5 py-1.5 outline-none border-none">
-            <option value="popularity.desc">Popularity</option>
-            <option value="release_date.desc">Newest Releases</option>
-            <option value="vote_average.desc">Top Rated</option>
-            <option value="vote_count.desc">Most Voted</option>
-            <option value="revenue.desc">Highest Revenue</option>
-            <option value="original_title.asc">Title (A-Z)</option>
-          </select>
-          <select
-            name="genre"
-            value={genre}
-            onChange={(e) => handleFilterChange("genre", e.target.value)}
-            className="bg-surface rounded-md pl-2.5 py-1.5 outline-none border-none">
-            <option value="">All Genres</option>
-            {genresData?.map((genre) => (
-              <option key={genre.id} value={genre.id.toString()}>
-                {genre.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <SortAndFilterControls mediaType={mediaType} sortBy={sortBy} genre={genre} onFilterChange={handleFilterChange} />
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6 py-1">
         {media.map((item, index) => (
