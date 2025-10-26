@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import MediaCard from "../components/MediaCard";
 import useDiscoverMedia from "../hooks/useDiscoverMedia";
 import { useSearchParams } from "react-router-dom";
-import Pagination from "../components/Pagination";
 import DiscoverPageSkeleton from "../components/skeletons/DiscoverPageSkeleton";
 import SortAndFilterControls from "../components/SortAndFilterControls";
+import { useInView } from "react-intersection-observer";
 
 interface DiscoverPageProps {
   mediaType: "movie" | "tv";
@@ -12,31 +12,24 @@ interface DiscoverPageProps {
 
 export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const page = Number(searchParams.get("page")) || 1;
+  const { ref, inView } = useInView({ rootMargin: "750px" });
   const sortBy = searchParams.get("sortBy") || "popularity.desc";
   const genre = searchParams.get("genre") || "";
 
-  const { data, isLoading, isError, error, isFetching } = useDiscoverMedia(mediaType, { page, sortBy, genre });
-
-  const media = data?.results || [];
-  const totalPages = data?.total_pages || 1;
+  const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useDiscoverMedia(mediaType, { sortBy, genre });
+  const media = data?.pages.flatMap((page) => page.results) || [];
 
   const handleFilterChange = (key: string, value: string) => {
-    const currentParams = Object.fromEntries(searchParams.entries());
-    setSearchParams({ ...currentParams, [key]: value, page: "1" });
-  };
-
-  const handleSetPage = (newPage: number) => {
-    const currentParams = Object.fromEntries(searchParams.entries());
-    setSearchParams({ ...currentParams, page: newPage.toString() });
+    const newParams: Record<string, string> = { sortBy, genre };
+    newParams[key] = value;
+    setSearchParams(newParams);
   };
 
   useEffect(() => {
-    if (!isFetching) {
-      window.scrollTo(0, 0);
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
     }
-  }, [isFetching]);
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) return <DiscoverPageSkeleton />;
   if (isError) return <div className="text-center py-20 text-red-400">{error.message}</div>;
@@ -52,7 +45,9 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
           <MediaCard key={item.id} item={item} index={index} />
         ))}
       </div>
-      {totalPages > 1 && <Pagination currentPage={page} totalPages={totalPages} onPageChange={handleSetPage} isLoading={isFetching} />}
+      <div className="flex justify-center items-center h-20">
+        {hasNextPage ? <div ref={ref} /> : <p className="text-text-secondary">No more results</p>}
+      </div>
     </>
   );
 }
