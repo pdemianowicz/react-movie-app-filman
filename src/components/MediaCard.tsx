@@ -22,12 +22,12 @@ export default function MediaCard({ item, index = 0 }: MediaCardProps) {
       initial={index < 18 ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}>
-      <div className="w-full aspect-[2/3] group relative rounded overflow-hidden shadow-lg">
-        <Link to={`/${mediaType}/${item.id}`} className="group relative block w-full h-full">
+      <Link to={`/${mediaType}/${item.id}`} className="group relative block w-full h-full">
+        <div className="w-full aspect-[2/3] relative rounded overflow-hidden shadow-lg">
           {/* image */}
           <img
-            src={getImageUrl(posterUrl, "w300")}
-            alt={title}
+            src={getImageUrl(posterUrl, "w185")}
+            alt={`Poster for ${title}`}
             loading="lazy"
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -40,16 +40,16 @@ export default function MediaCard({ item, index = 0 }: MediaCardProps) {
           <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
             ⭐ {rating}
           </div>
-        </Link>
-      </div>
-      <div className="mt-0.5">
-        <p className="text-text-primary font-semibold truncate group-hover:underline cursor-pointer">{title}</p>
-        <p className="text-xs text-text-secondary">
-          {mediaType.toUpperCase()}
-          {` • `}
-          {year}
-        </p>
-      </div>
+        </div>
+        <div className="mt-0.5">
+          <p className="text-text-primary font-semibold truncate group-hover:underline cursor-pointer">{title}</p>
+          <p className="text-xs text-text-secondary">
+            {mediaType.toUpperCase()}
+            {` • `}
+            {year}
+          </p>
+        </div>
+      </Link>
     </motion.div>
   );
 }
