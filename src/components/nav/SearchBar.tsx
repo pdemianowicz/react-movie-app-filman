@@ -100,9 +100,7 @@ export default function SearchBar({ onClose }: SearchBarProps) {
         </div>
       )}
 
-      {shouldShowDropdown && (
-        <SearchDropdown results={filteredData} loading={isLoading} error={error ? error.message : ""} onLinkClick={handleClose} />
-      )}
+      {shouldShowDropdown && <SearchDropdown results={filteredData} onLinkClick={handleClose} />}
     </div>
   );
 }

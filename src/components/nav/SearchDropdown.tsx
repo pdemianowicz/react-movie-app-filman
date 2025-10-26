@@ -4,12 +4,10 @@ import getImageUrl from "../../utils/getImageUrl";
 
 export interface SearchDropdownProps {
   results: TmdbResults[];
-  loading: boolean;
-  error: string;
   onLinkClick: () => void;
 }
 
-export default function SearchDropdown({ results, loading, error, onLinkClick }: SearchDropdownProps) {
+export default function SearchDropdown({ results, onLinkClick }: SearchDropdownProps) {
   return (
     <div className="absolute z-10 top-full left-0 right-0 bg-surface rounded-md shadow-lg mt-2">
       {results.slice(0, 4).map((item) => (
