@@ -1,8 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
-import useBookmarks from "./useBookmarks";
+import useBookmarks, { STORAGE_KEY } from "./useBookmarks";
 import { beforeEach, describe, expect, it } from "vitest";
 
-const STORAGE_KEY = "Filman_bookmarks";
 const SAMPLE_MOVIE = { id: 1, mediaType: "movie" };
 const SAMPLE_TV = { id: 2, mediaType: "tv" };
 

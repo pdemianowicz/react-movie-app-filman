@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "Filman_bookmarks";
+export const STORAGE_KEY = "Filman_bookmarks";
 
 export interface Bookmark {
   id: number;
