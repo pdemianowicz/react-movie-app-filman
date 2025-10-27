@@ -12,8 +12,8 @@
 
 @theme {
   --color-accent: #dc2626;
-  --color-surface: #f3f4f6;
-  --color-background: oklch(98.5% 0 0);
+  --color-surface: #e8e8e8;
+  --color-background: #efefef;
   --color-text-primary: #111827;
   --color-text-secondary: #6b7280;
 }

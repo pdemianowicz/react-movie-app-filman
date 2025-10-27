@@ -1,4 +1,4 @@
-# 🎬 Filman
+# 🎬 Filman [![CI](https://github.com/pdemianowicz/react-movie-app-filman/actions/workflows/ci.yml/badge.svg)](https://github.com/pdemianowicz/react-movie-app-filman/actions/workflows/ci.yml)
 
 **Filman** is a modern, Netflix-inspired web application for discovering movies and TV shows. This project was built with a modern frontend stack and fetches all of its data from the public API of [The Movie Database (TMDB)](https://www.themoviedb.org/).
 
