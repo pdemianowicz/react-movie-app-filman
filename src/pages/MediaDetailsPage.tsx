@@ -45,7 +45,7 @@ export default function MediaDetailsPage({ mediaType }: MediaDetailsPageProps) {
           alt={title}
           className="w-[250px] h-[350px] md:w-[350px] md:h-[515px] rounded-lg mx-auto mb-4 md:mb-0 aspect-[2/3]"
         />
-        <div className="text-gray-300">
+        <div className="text-text-tertiary">
           <div className="flex items-center justify-between gap-2 mb-1">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-text-primary">{title}</h1>
             <BookmarkButton id={data.id} mediaType={mediaType} />
@@ -57,7 +57,7 @@ export default function MediaDetailsPage({ mediaType }: MediaDetailsPageProps) {
             <button
               type="button"
               onClick={handleClick}
-              className="bg-accent/85 text-text-primary font-medium px-6 py-2.5 rounded-lg cursor-pointer hover:bg-accent/75">
+              className="bg-accent/85 text-white font-medium px-6 py-2.5 rounded-lg cursor-pointer hover:bg-accent/75">
               Play Trailer
             </button>
           </div>
@@ -70,7 +70,7 @@ export default function MediaDetailsPage({ mediaType }: MediaDetailsPageProps) {
       ) : (
         <>
           <h2 className="text-xl font-semibold text-text-primary">You might also like</h2>
-          <p className="text-gray-400">No suggestions available.</p>
+          <p className="text-text-tertiary">No suggestions available.</p>
         </>
       )}
 
@@ -80,7 +80,7 @@ export default function MediaDetailsPage({ mediaType }: MediaDetailsPageProps) {
       ) : (
         <>
           <h2 className="text-xl font-semibold text-text-primary">Cast</h2>
-          <p className="text-gray-400">No cast available.</p>
+          <p className="text-text-tertiary">No cast available.</p>
         </>
       )}
 

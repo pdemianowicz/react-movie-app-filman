@@ -38,8 +38,8 @@ export default function Header() {
                 to={item.url}
                 key={item.title + index}
                 className={({ isActive }) =>
-                  `rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 transition-colors ${
-                    isActive ? "text-text-primary bg-gray-900" : "text-text-secondary hover:text-text-primary"
+                  `rounded-md px-3 py-2 text-sm font-medium hover:bg-nav-active-bg transition-colors ${
+                    isActive ? "text-text-primary bg-nav-active-bg" : "text-text-secondary hover:text-text-primary"
                   }`
                 }>
                 {item.title}

@@ -51,20 +51,19 @@ export default function PersonDetails() {
           </div>
           <dl className="space-y-4 max-md:text-sm mt-2">
             <InfoItem label="Known For" value={knownFor} />
-
             <InfoItem label="Age" value={ageDisplay} />
             <InfoItem label="Birthday" value={birthday} />
             <InfoItem label="Place of Birth" value={birthPlace} />
           </dl>
         </aside>
-        <div className="flex-1 text-gray-300 max-md:mt-6">
+        <div className="flex-1 text-text-tertiary max-md:mt-6">
           <div className="flex items-center justify-between gap-2 mb-2">
             <h1 className="text-3xl md:text-4xl font-semibold text-text-primary">{name}</h1>
           </div>
           <ExpandableText>{bio}</ExpandableText>
           <div className="mt-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-white">Known For</h2>
+              <h2 className="text-xl font-semibold text-text-primary">Known For</h2>
 
               {/* Show All Button */}
               {knownForMedia.length > 10 && (

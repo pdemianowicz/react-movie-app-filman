@@ -14,7 +14,7 @@ export default function MediaCredits({ cast, crew, maxCast = 3 }: MovieCreditsPr
   if (topCast.length === 0 && !director) return null;
 
   return (
-    <div className="mt-8 space-y-2 text-sm text-gray-300">
+    <div className="mt-8 space-y-2 text-sm text-text-tertiary">
       {director && (
         <div className="flex gap-2">
           <span className=" font-medium min-w-[80px]">Director:</span>
