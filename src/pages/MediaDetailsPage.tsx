@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useMediaDetails from "../hooks/useMediaDetails";
 import MediaDetailsSkeleton from "../components/skeletons/MediaDetailsSkeleton";
 import { formatDate, formatRuntime } from "../utils/dateUtils";
@@ -10,6 +10,7 @@ import MediaCredits from "../components/MediaDetails/MediaCredits";
 import MediaCarousel from "../components/MediaCarousel";
 import MovieCast from "../components/MediaDetails/MovieCast";
 import Section from "../components/MediaDetails/Section";
+import ImageModal from "../components/ImageModal";
 
 interface MediaDetailsPageProps {
   mediaType: "movie" | "tv";
@@ -18,6 +19,11 @@ interface MediaDetailsPageProps {
 export default function MediaDetailsPage({ mediaType }: MediaDetailsPageProps) {
   const { data, isLoading, isError, error } = useMediaDetails(mediaType);
   const trailerRef = useRef<HTMLHRElement>(null);
+
+  // image modal state and handlers
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const handleImageClick = (imgPath: string) => setSelectedImg(getImageUrl(imgPath, "original"));
+  const closeModal = () => setSelectedImg(null);
 
   const handleClick = () => trailerRef.current?.scrollIntoView({ behavior: "smooth" });
 
@@ -105,11 +111,14 @@ export default function MediaDetailsPage({ mediaType }: MediaDetailsPageProps) {
               src={getImageUrl(img.file_path, "w400")}
               alt="backdrop image"
               loading="lazy"
+              onClick={() => handleImageClick(img.file_path)}
               className="w-full rounded-md hover:opacity-75 transition ease-in-out duration-150 cursor-pointer"
             />
           ))}
         </div>
       </Section>
+
+      <ImageModal isOpen={!!selectedImg} imgUrl={selectedImg} onClose={closeModal} />
     </div>
   );
 }
