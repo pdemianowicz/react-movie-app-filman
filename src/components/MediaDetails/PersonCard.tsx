@@ -22,7 +22,7 @@ export default function PersonCard({ item }: PersonCardProps) {
         <img
           src={imageSrc}
           alt={item.name}
-          className="aspect-square rounded-full object-cover group-hover:opacity-75 transition ease-in-out duration-150 cursor-pointer"
+          className="w-full aspect-square rounded-full object-cover group-hover:opacity-75 transition ease-in-out duration-150 cursor-pointer"
           loading="lazy"
         />
         <span className="text-text-primary font-medium text-sm block mt-1 group-hover:underline">{item.name}</span>
