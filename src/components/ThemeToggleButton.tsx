@@ -4,7 +4,7 @@ import { LuMoon, LuSun } from "react-icons/lu";
 export default function ThemeToggleButton() {
   const [theme, setTheme] = useState(() => {
     const theme = localStorage.getItem("theme");
-    return theme;
+    return theme || "dark";
   });
 
   useEffect(() => {
