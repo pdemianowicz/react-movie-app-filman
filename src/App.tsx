@@ -30,7 +30,7 @@ function App() {
   const location = useLocation();
 
   return (
-    <main className="flex flex-col min-h-screen bg-background text-text-primary">
+    <main className="flex flex-col min-h-screen bg-background text-text-primary transition-colors duration-300 ease-in-out">
       <Header />
       <div className="flex-grow p-4 md:p-6 overflow-hidden max-w-7xl mx-auto mt-8 w-full">
         <AnimatePresence mode="wait">
