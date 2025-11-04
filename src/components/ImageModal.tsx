@@ -34,7 +34,7 @@ export default function ImageModal({ isOpen, onClose, imgUrl }: ImageModalProps)
   return createPortal(
     <div>
       {isOpen && (
-        <div onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+        <div aria-modal="true" role="dialog" onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div onClick={(e) => e.stopPropagation()} className="relative max-w-7xl px-4 w-full">
             <img src={imgUrl || ""} alt="Preview" className="rounded-md max-h-[90vh] mx-auto object-contain" />
             <button
