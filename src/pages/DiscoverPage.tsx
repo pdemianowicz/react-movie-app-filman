@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import DiscoverPageSkeleton from "../components/skeletons/DiscoverPageSkeleton";
 import SortAndFilterControls from "../components/SortAndFilterControls";
 import { useInView } from "react-intersection-observer";
+import ScrollToTopButton from "../components/ScrollToTopButton";
 
 interface DiscoverPageProps {
   mediaType: "movie" | "tv";
@@ -45,6 +46,7 @@ export default function DiscoverPage({ mediaType }: DiscoverPageProps) {
           <MediaCard key={item.id} item={item} index={index} />
         ))}
       </div>
+      <ScrollToTopButton />
       <div className="flex justify-center items-center h-20">
         {hasNextPage ? <div ref={ref} /> : <p className="text-text-secondary">No more results</p>}
       </div>
