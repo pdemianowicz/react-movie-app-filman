@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FaTimes } from "react-icons/fa";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -9,6 +11,8 @@ interface ImageModalProps {
 }
 
 export default function ImageModal({ isOpen, onClose, imgUrl }: ImageModalProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -31,22 +35,49 @@ export default function ImageModal({ isOpen, onClose, imgUrl }: ImageModalProps)
     };
   }, [onClose]);
 
+  useEffect(() => {
+    if (isOpen) {
+      setImageLoaded(false);
+    }
+  }, [isOpen, imgUrl]);
+
   return createPortal(
-    <div>
+    <AnimatePresence>
       {isOpen && (
-        <div aria-modal="true" role="dialog" onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          aria-modal="true"
+          role="dialog"
+          onClick={onClose}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-6 text-white bg-black/40 hover:bg-black/60 rounded-full p-2 transition cursor-pointer"
+            aria-label="Close image">
+            <FaTimes className="w-5 h-5" />
+          </button>
           <div onClick={(e) => e.stopPropagation()} className="relative max-w-7xl px-4 w-full">
-            <img src={imgUrl || ""} alt="Preview" className="rounded-md max-h-[90vh] mx-auto object-contain" />
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-6 text-white bg-black/40 hover:bg-black/60 rounded-full p-2 transition cursor-pointer"
-              aria-label="Close image">
-              <FaTimes className="w-5 h-5" />
-            </button>
+            {!imageLoaded && (
+              <div className="flex items-center justify-center min-w-7xl">
+                <LoadingSpinner />
+              </div>
+            )}
+
+            <img
+              src={imgUrl || ""}
+              onLoad={() => setImageLoaded(true)}
+              alt="Preview"
+              className={`rounded-md max-h-[90vh] mx-auto object-contain transition-opacity duration-300 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+            />
           </div>
-        </div>
+        </motion.div>
       )}
-    </div>,
+    </AnimatePresence>,
     document.body
   );
 }
